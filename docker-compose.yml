@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  login-automated-notebook:
+    build: .
+    image: aeor06/login-automated-notebook:latest
+    container_name: login-automated-notebook
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    volumes:
+      - ~/.notebooklm:/root/.notebooklm
+    restart: unless-stopped
+    environment:
+      - HEADLESS=true
+      - IN_DOCKER=true

@@ -10,11 +10,13 @@ load_dotenv()
 app = Flask(__name__)
 
 def automated_playwright_login(email, password, auth_dir, session_file):
+    headless_mode = os.getenv('HEADLESS', 'false').lower() == 'true'
+    
     with sync_playwright() as p:
         # Usamos launch_persistent_context para guardar los datos en .auth_profile
         context = p.chromium.launch_persistent_context(
             user_data_dir=auth_dir,
-            headless=False, # Necesitamos verlo por si pide 2FA
+            headless=headless_mode, # En Windows False, en Docker True
             args=['--disable-blink-features=AutomationControlled', '--no-sandbox'],
             user_agent=(
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
