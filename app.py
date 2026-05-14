@@ -116,10 +116,9 @@ def login():
 
         os.makedirs(base_dir, exist_ok=True)
 
-        # Si NO existen, hacemos login automático con Playwright
-        if not os.path.exists(session_file):
-            print("No se encontró session.json. Iniciando automatización de login...")
-            automated_playwright_login(email, password, auth_dir, session_file)
+        # Siempre ejecutamos el flujo de login para refrescar el session.json
+        print("Iniciando automatización de login para refrescar sesión...")
+        automated_playwright_login(email, password, auth_dir, session_file)
 
         # Retornar el session.json
         if os.path.exists(session_file):
