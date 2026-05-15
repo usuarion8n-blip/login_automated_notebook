@@ -3,6 +3,7 @@ import json
 import time
 from flask import Flask, request, jsonify
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
+from playwright_stealth import stealth_sync
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -26,6 +27,7 @@ def automated_playwright_login(email, password, auth_dir, session_file):
         )
         
         page = context.pages[0] if context.pages else context.new_page()
+        stealth_sync(page)
 
         try:
             page.goto('https://notebooklm.google.com', wait_until='networkidle', timeout=30000)

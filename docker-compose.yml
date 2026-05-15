@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ~/.notebooklm:/root/.notebooklm
+      - /root/.notebooklm:/root/.notebooklm
     restart: unless-stopped
     environment:
       - HEADLESS=true
